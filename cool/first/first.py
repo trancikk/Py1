@@ -13,4 +13,5 @@ hidden_to_out = FullConnection(hiddenLayer, outLayer)
 n.addConnection(in_to_hidden)
 n.addConnection(hidden_to_out)
 n.sortModules()
+print n
 print('good')
