@@ -45,18 +45,6 @@ for i in range(20):
     figure(1)
     ioff()  # interactive graphics off
     clf()   # clear the plot
-<<<<<<< Upstream, based on origin/first
-    hold(True) # overplot on
-    for c in [0,1,2]:
-        here, _ = where(tstdata['class']==c)
-        plot(tstdata['input'][here,0],tstdata['input'][here,1],'o')
-    if out.max()!=out.min():  # safety check against flat field
-        contourf(X, Y, out)   # plot the contour
-    ion()   # interactive graphics on
-    draw()  # update the plot
-ioff()
-show()        
-=======
    # hold(True) # overplot on
     for c in [0,1,2]:
         here, _ = where(tstdata['class']==c)
@@ -68,4 +56,4 @@ show()
     show()    
     ioff()
     
->>>>>>> 36d6677 
+
