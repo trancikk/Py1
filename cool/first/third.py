@@ -45,7 +45,7 @@ for i in range(20):
     figure(1)
     ioff()  # interactive graphics off
     clf()   # clear the plot
-    hold(True) # overplot on
+   # hold(True) # overplot on
     for c in [0,1,2]:
         here, _ = where(tstdata['class']==c)
         plot(tstdata['input'][here,0],tstdata['input'][here,1],'o')
@@ -53,5 +53,7 @@ for i in range(20):
         contourf(X, Y, out)   # plot the contour
     ion()   # interactive graphics on
     draw()  # update the plot
-ioff()
-show()        
+    show()    
+    ioff()
+    
+

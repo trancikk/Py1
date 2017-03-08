@@ -14,6 +14,7 @@ n.addConnection(in_to_hidden)
 n.addConnection(hidden_to_out)
 n.sortModules()
 print n
+print(n)
 n.activate([1, 2])
 print(in_to_hidden.params)
 print(hidden_to_out.params)
