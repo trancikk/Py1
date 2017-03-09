@@ -1,12 +1,13 @@
 import xlrd
-def setExcelName(name):
-    global exc_name=name
-rb = xlrd.open_workbook('exc_name')
-sheet = rb.sheet_by_index(0)
-row_list=list()
-for rownum in range(sheet.nrows):
-    row = sheet.row_values(rownum)
-    row_list.append(row)
-def getRow(rownum):
-    return row_list[rownum]
+class ExcelFile():
+    def __init__(self, value):
+        self.name=value 
+        self.rb = xlrd.open_workbook('./res/'+self.name, encoding_override='utf-8')
+        self.sheet = self.rb.sheet_by_index(0)
+        self.row_list=list()
+        for rownum in range(self.sheet.nrows):
+            self.row = self.sheet.row_values(rownum)
+            self.row_list.append(self.row)
+    def getRow(self,rownum):
+        return self.row_list[rownum]
 
