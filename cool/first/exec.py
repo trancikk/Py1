@@ -39,15 +39,20 @@ for i in range(fail.getNum()-1):
     
 for i in range(result.getNum()-1):
     resultPerson.append(person.Person(result.getRow(i+1),resultHead))
-print resultHead[4:5]
-k=0   
+#print resultHead[4:5]
+#k=0   
 for i in range(result.getNum()-1):
     for t in range(fail.getNum()-1):
         if failPerson[t].getSurname() == resultPerson[i].getSurname():
             failPerson[t].setResult(resultPerson[i].getRow())
-            print failPerson[t].getSurname(),resultPerson[i].getSurname(),resultPerson[i].getRow()[u'\u0414\u0438\u0430\u0433\u043d\u043e\u0437'], failPerson[t].getResult()
-            k+=1 
-print k
+      
+            #print failPerson[t].getSurname(),resultPerson[i].getSurname(),resultPerson[i].getRow()[u'\u0414\u0438\u0430\u0433\u043d\u043e\u0437'], failPerson[t].getResult()
+
+            #k+=1 
+serial.serialise(failPerson, 'fail')
+serial.serialise(successPerson, 'success')
+serial.serialise(resultPerson, 'result')
+#print k
 #personGood=person.Person(firstR)
 ##Person1=person.Person(firstRow,head)
 #print((Person1.getProp()))
