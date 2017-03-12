@@ -10,12 +10,12 @@ def _pickle_method(m):
         return getattr, (m.im_self, m.im_func.func_name)
     
 def serialise(ob,name):
-    file=name+'.data'
+    file='./data/'+name+'.data'
     output = open(file, 'wb')
     pickle.dump(ob, output, 2)
     output.close()
 def load(name):
-    file=name+'.data'
+    file='./data/'+name+'.data'
     input = open(file, 'rb')
     obj = pickle.load(input)
     input.close()
