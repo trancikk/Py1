@@ -3,12 +3,21 @@ from pybrain.structure import FeedForwardNetwork
 import serial
 from pybrain.datasets import SupervisedDataSet
 import person
+from pybrain.datasets            import ClassificationDataSet
+from pybrain.utilities           import percentError
+from pybrain.tools.shortcuts     import buildNetwork
+from pybrain.supervised.trainers import BackpropTrainer
+from pybrain.structure.modules   import SoftmaxLayer
+from pylab import ion, ioff, figure, draw, contourf, clf, show, hold, plot
+from scipy import diag, arange, meshgrid, where
+from numpy.random import multivariate_normal
 #TODO ?
 n = FeedForwardNetwork()
 dssuccess=serial.load('success_norm')
 dsfail=serial.load('fail_norm')
-head=serial.load('gens')
+head=serial.load('gens_list')
 full=dsfail+dssuccess
+alldata = ClassificationDataSet(2, 1, nb_classes=3)
 #print len(dssuccess)
 #print len(full)
 t=0

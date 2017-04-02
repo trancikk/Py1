@@ -4,6 +4,8 @@ import locale
 import sys
 import serial
 import person
+import gen
+
 
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -25,7 +27,7 @@ fail=excel.ExcelFile('Fetus 2.xlsx')
 successHead=success.getRow(0)
 failHead=fail.getRow(0)
 head=failHead[2:]
-serial.serialise(head,'gens')
+serial.serialise(head,'gens_list')
 successPerson=list()
 failPerson=list()
 resultHead=result.getRow(0)
