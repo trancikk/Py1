@@ -35,9 +35,14 @@ for i in (full):
     #t+=1
 #ds=SupervisedDataSet(9,1)
 #ds.addSample(inp, target)
+tstdata, trndata = alldata.splitWithProportion( 0.25 )
+print "Number of training patterns: ", len(trndata)
+print "Input and output dimensions: ", trndata.indim, trndata.outdim
+print "First sample (input, target, class):"
+#print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 
 inLayer = LinearLayer(9, name='in')
-hiddenLayer = SigmoidLayer(3, name='hide')
+hiddenLayer = SigmoidLayer(9, name='hide')
 outLayer = LinearLayer(1, name='out')
 n.addInputModule(inLayer)
 n.addModule(hiddenLayer)
@@ -47,6 +52,15 @@ in_to_hidden = FullConnection(inLayer, hiddenLayer, name = 'con1')
 hidden_to_out = FullConnection(hiddenLayer, outLayer, name='con2')
 n.addConnection(in_to_hidden)
 n.addConnection(hidden_to_out)
+
+fnn = buildNetwork( trndata.indim, 5, trndata.outdim, outclass=SoftmaxLayer )
+trainer = BackpropTrainer( fnn, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.01)
+for i in range(10):
+    trainer.trainEpochs(10)
+print fnn.activate(tstdata['input'][0])
+print tstdata['target'][0]
+print fnn.activate(trndata['input'][1])
+print trndata['target'][1]
 n.sortModules()
 print n
 serial.serialise(n,'network')
