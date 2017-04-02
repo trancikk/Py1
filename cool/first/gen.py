@@ -24,8 +24,8 @@ class Gen():
         return self.zig
     
     def getDict(self):
-        return dict({self.getName():self.getGens()})
-            
+        #return dict({self.getName():self.getGens()})
+        return dict({self.getName():self})    
 class Gens(Gen):
     
     gens=dict()

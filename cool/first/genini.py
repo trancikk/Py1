@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 import gen
 import execution
-print execution.head
+#print execution.head
 import serial
 
 gens=dict()
 il8=gen.Gen(execution.head[0],'C','T')
+#gens.update(il8.getName(),il8)
 gens.update(il8.getDict())
+
 
 il10_592=gen.Gen(execution.head[1],'C','A')
 gens.update(il10_592.getDict())
