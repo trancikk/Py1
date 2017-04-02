@@ -53,7 +53,7 @@ class Person(object):
         for i in sorted(self.gens.keys()):
             if i not in example:
                 self.gens.pop(i)
-        self.setRow([data_gens[i].normalise(i,self.getRow()[i])] for i in sorted(self.gens.keys()))
+        self.setRow(data_gens[i].normalise(i,self.getRow()[i]) for i in sorted(self.gens.keys()))
                          
     def normaliseResults(self):
         if self.getResult()=='НВ':
