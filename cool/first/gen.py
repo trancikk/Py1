@@ -15,7 +15,7 @@ class Gen():
             if zigot=='N/A':
                 return 0
             sum=self.zig[zigot[0]]+self.zig[zigot[1]]
-            return sum-1
+            return (sum-1.)/3.
     
     def getName(self):
         return self.name

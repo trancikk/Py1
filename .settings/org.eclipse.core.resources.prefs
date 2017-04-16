@@ -1,2 +1,9 @@
 eclipse.preferences.version=1
-encoding//cool/first/exec.py=utf-8
+encoding//cool/first/execution.py=utf-8
+encoding//cool/first/genini.py=utf-8
+encoding//cool/first/network.py=utf-8
+encoding//cool/first/person.py=utf-8
+encoding//cool/first/pybrain/structure/modules/gate.py=utf-8
+encoding//cool/first/pybrain/structure/modules/samplelayer.py=utf-8
+encoding//cool/first/xlwt/Row.py=windows-1252
+encoding//cool/first/xlwt/Worksheet.py=windows-1252
