@@ -12,11 +12,13 @@ from pybrain.structure.modules   import SoftmaxLayer
 from pylab import ion, ioff, figure, draw, contourf, clf, show, hold, plot
 from scipy import diag, arange, meshgrid, where
 from numpy.random import multivariate_normal
-import numpy
+import numpy as np
 from pybrain.structure import LinearLayer, SigmoidLayer, BiasUnit
 from pybrain.structure import FullConnection
 from matplotlib import pyplot
 from pybrain.tests.helpers import gradientCheck
+
+
 #from first.numpy.core.defchararray import array
 #TODO ?
 n = FeedForwardNetwork()
@@ -38,13 +40,14 @@ for i in (full):
     #t+=1
 #ds=SupervisedDataSet(9,1)
 #ds.addSample(inp, target)
-tstdata, trndata = alldata.splitWithProportion( 0.15 )
+tstdata,trndata  = alldata.splitWithProportion(0.15)
+#valdata, trndata = netdata.splitWithProportion(0.10)
 print "Number of training patterns: ", len(trndata)
 print "Input and output dimensions: ", trndata.indim, trndata.outdim
 print "First sample (input, target, class):"
 #print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 trndata._convertToOneOfMany( )
-tstdata._convertToOneOfMany( )
+#tstdata._convertToOneOfMany( )
 inLayer = LinearLayer(9, name='in')
 hiddenLayer = SigmoidLayer(15, name='hide')
 bias1=BiasUnit(3)
@@ -77,29 +80,29 @@ n.addConnection(hidden3_to_bias1)
 n.addConnection(bias3_to_out)
 n.sortModules()
 #n.randomize()
-fnn = buildNetwork( trndata.indim, 5, trndata.outdim, outclass=SoftmaxLayer )
-trainer = BackpropTrainer( fnn, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1)
-trainer2 = RPropMinusTrainer( n, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1,batchlearning=1)
+fnn = buildNetwork( trndata.indim, 5, trndata.outdim,hiddenclass=SigmoidLayer,bias=1, outclass=SoftmaxLayer )
+#trainer = RPropMinusTrainer( fnn, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1,batchlearning=1)
+#trainer2 = RPropMinusTrainer( n, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1,batchlearning=1)
 #for i in range(10):
 #    trainer2.trainEpochs(2)
  #   trainer2._checkGradient(trndata)
 #trainer2.trainEpochs(2)
 #trainer2.testOnClassData()
-trainer2.trainUntilConvergence()
+#trainer.trainUntilConvergence()
 #print fnn.activate(tstdata['input'][0])
 #print tstdata['target'][0]
-print n.activate(tstdata['input'][0])
-print tstdata['target'][0]
-print n.activate(tstdata['input'][1])
-print tstdata['target'][1]
-print n.activate(tstdata['input'][2])
-print tstdata['target'][2]
-print n.activate(tstdata['input'][3])
-print tstdata['target'][3]
-print n.activate(tstdata['input'][4])
-print tstdata['target'][4]
-print n.activate(tstdata['input'][5])
-print tstdata['target'][5]
+#print fnn.activate(tstdata['input'][0])
+#print tstdata['target'][0]
+#print fnn.activate(tstdata['input'][1])
+#print tstdata['target'][1]
+#print fnn.activate(tstdata['input'][2])
+#print tstdata['target'][2]
+#print fnn.activate(tstdata['input'][3])
+#print tstdata['target'][3]
+#print fnn.activate(tstdata['input'][4])
+#print tstdata['target'][4]
+#print fnn.activate(tstdata['input'][5])
+#print tstdata['target'][5]
 
 #pyplot.show()
 #pyplot.show(pyplot.plot(tstdata['target']))
@@ -111,10 +114,88 @@ print tstdata['target'][5]
 #print n.activate(trndata['input'][1])
 #print trndata['target'][1]
 #n.sortModules()
-print n
-print n.params
-print gradientCheck(n)
+#print n
+#print n.params
+#print gradientCheck(n)
 #serial.serialise(n,'network')
 #print 'good'
 #netw=serial.load('network')
 #print netw
+import network2
+net = network2.Network([9, 15, 2])#, cost=network2.CrossEntropyCost)
+net.large_weight_initializer()
+training_data=list()
+test_data=list()
+for i in range(len(trndata)):
+    arr=list()
+    #np.ndarray(len(trndata['input'][i]))
+    tarr=list()
+    #np.ndarray(len(trndata['target'][i]))
+    for t in range(len(trndata['input'][i])):
+        arr.append([trndata['input'][i][t]])
+    ndarr=np.asarray(arr)
+    for t in range(len(trndata['target'][i])):
+        tarr.append([trndata['target'][i][t]])
+    ndtarr=np.asarray(tarr)
+   # arr.reshape(9,1)
+    training_data.append((ndarr,ndtarr))
+
+for i in range(len(tstdata)):
+    arr=list()
+    #np.ndarray(len(trndata['input'][i]))
+    tarr=list()
+    #np.ndarray(len(trndata['target'][i]))
+    for t in range(len(tstdata['input'][i])):
+        arr.append([tstdata['input'][i][t]])
+    ndarr=np.asarray(arr)
+    #for t in range(len(tstdata['target'][i])):
+    #    tarr.append([tstdata['target'][i][t]])
+    #ndtarr=np.asarray(tarr)
+   # arr.reshape(9,1)
+    test_data.append((ndarr,tstdata['target'][i]))
+stat=([1],[1],[1],[1])
+k=0
+while abs(stat[1][-1]-len(tstdata['input']))>1:
+    tstdata,trndata  = alldata.splitWithProportion(0.15)
+    trndata._convertToOneOfMany( )
+    #net.large_weight_initializer()
+    training_data=list()
+    test_data=list()
+    for i in range(len(trndata)):
+        arr=list()
+    #np.ndarray(len(trndata['input'][i]))
+        tarr=list()
+    #np.ndarray(len(trndata['target'][i]))
+        for t in range(len(trndata['input'][i])):
+            arr.append([trndata['input'][i][t]])
+            ndarr=np.asarray(arr)
+        for t in range(len(trndata['target'][i])):
+            tarr.append([trndata['target'][i][t]])
+        ndtarr=np.asarray(tarr)
+   # arr.reshape(9,1)
+        training_data.append((ndarr,ndtarr))
+
+    for i in range(len(tstdata)):
+        arr=list()
+    #np.ndarray(len(trndata['input'][i]))
+        tarr=list()
+    #np.ndarray(len(trndata['target'][i]))
+        for t in range(len(tstdata['input'][i])):
+            arr.append([tstdata['input'][i][t]])
+        ndarr=np.asarray(arr)
+    #for t in range(len(tstdata['target'][i])):
+    #    tarr.append([tstdata['target'][i][t]])
+    #ndtarr=np.asarray(tarr)
+   # arr.reshape(9,1)
+        test_data.append((ndarr,tstdata['target'][i]))
+#print 'cool'
+    #training_data=list(trndata['input'][i],trndata['target'][i]) for i in trndata.length())
+    #test_data=(tstdata['input'],tstdata['target'])
+    #stat=net.SGD(training_data, 1000, 3, 0.07, lmbda = 1, evaluation_data=test_data,monitor_evaluation_accuracy=True, monitor_training_cost=True, monitor_training_accuracy=True)
+    stat=net.SGD(training_data, 1000, 3, 0.07,  evaluation_data=test_data,monitor_evaluation_accuracy=True, monitor_training_cost=True, monitor_training_accuracy=True)
+    nets_all=list()
+    nets_all.append((net,stat))
+    k=k+1
+#net.SGD(training_data, 400, 10, 0.5, evaluation_data=test_data, monitor_evaluation_cost=True, monitor_evaluation_accuracy=True,monitor_training_cost=True, monitor_training_accuracy=True)
+serial.serialise(nets_all,'nets_new_large_2_quadrocost_without_lamb')
+print 'a'
