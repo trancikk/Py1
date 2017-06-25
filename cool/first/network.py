@@ -9,13 +9,13 @@ from pybrain.tools.shortcuts     import buildNetwork
 from pybrain.supervised.trainers import BackpropTrainer, RPropMinusTrainer
 
 from pybrain.structure.modules   import SoftmaxLayer
-from pylab import ion, ioff, figure, draw, contourf, clf, show, hold, plot
+
 from scipy import diag, arange, meshgrid, where
 from numpy.random import multivariate_normal
 import numpy as np
 from pybrain.structure import LinearLayer, SigmoidLayer, BiasUnit
 from pybrain.structure import FullConnection
-from matplotlib import pyplot
+
 from pybrain.tests.helpers import gradientCheck
 
 
@@ -122,7 +122,7 @@ fnn = buildNetwork( trndata.indim, 5, trndata.outdim,hiddenclass=SigmoidLayer,bi
 #netw=serial.load('network')
 #print netw
 import network2
-net = network2.Network([9, 15, 2])#, cost=network2.CrossEntropyCost)
+net = network2.Network([9, 15, 2], cost=network2.CrossEntropyCost)
 net.large_weight_initializer()
 training_data=list()
 test_data=list()
@@ -192,10 +192,10 @@ while abs(stat[1][-1]-len(tstdata['input']))>1:
     #training_data=list(trndata['input'][i],trndata['target'][i]) for i in trndata.length())
     #test_data=(tstdata['input'],tstdata['target'])
     #stat=net.SGD(training_data, 1000, 3, 0.07, lmbda = 1, evaluation_data=test_data,monitor_evaluation_accuracy=True, monitor_training_cost=True, monitor_training_accuracy=True)
-    stat=net.SGD(training_data, 1000, 3, 0.07,  evaluation_data=test_data,monitor_evaluation_accuracy=True, monitor_training_cost=True, monitor_training_accuracy=True)
+    stat=net.SGD(training_data, 400, 3, 0.5, lmbda = 1, evaluation_data=test_data,monitor_evaluation_accuracy=True, monitor_training_cost=True, monitor_training_accuracy=True)
     nets_all=list()
     nets_all.append((net,stat))
     k=k+1
 #net.SGD(training_data, 400, 10, 0.5, evaluation_data=test_data, monitor_evaluation_cost=True, monitor_evaluation_accuracy=True,monitor_training_cost=True, monitor_training_accuracy=True)
-serial.serialise(nets_all,'nets_new_large_2_quadrocost_without_lamb')
+serial.serialise(nets_all,'nets_new_large_2_2')
 print 'a'
