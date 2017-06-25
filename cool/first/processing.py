@@ -9,7 +9,14 @@ import numpy as np
 
 net=serial.load('nets_new_large_2_3')
 def calculate(row):
-    return ((net[0][0].feedforward(row)));
+    res= ((net[0][0].feedforward(row)))
+    res
+    res_str='Fail rate= %s; \n Success rate= %s;' % tuple(res)
+    res_str=res_str.replace('[', '')
+    res_str=res_str.replace(']', '')
+    return res_str
+    
+    
 
 #print net[0][0]
 succ=serial.load('success_norm')
