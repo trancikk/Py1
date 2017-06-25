@@ -1,10 +1,4 @@
 import serial
-import network2
-import person
-import Tkinter
-import SimpleDialog 
-import tkMessageBox
-import person
 import numpy as np
 
 net=serial.load('nets_new_large_2_3')
@@ -18,7 +12,7 @@ def calculate(row):
     
     
 
-#print net[0][0]
+"""#print net[0][0]
 succ=serial.load('success_norm')
 fail=serial.load('fail_norm')
 #print [i.getNormalGen() for i in test]
@@ -56,4 +50,4 @@ print fail[2].getResult();
 #import genini
 #import gen
 #print ['Keys- %s, value - %s;' % (genini.gens[i].getName(), genini.gens[i].getGens()) for i in genini.gens.keys()]
-#print [i.printNormGens() for i in test]
+#print [i.printNormGens() for i in test]"""
