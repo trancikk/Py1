@@ -40,13 +40,15 @@ for i in (full):
     #t+=1
 #ds=SupervisedDataSet(9,1)
 #ds.addSample(inp, target)
+alldata._convertToOneOfMany( )
 tstdata,trndata  = alldata.splitWithProportion(0.15)
 #valdata, trndata = netdata.splitWithProportion(0.10)
+
+#trndata._convertToOneOfMany( )
 print "Number of training patterns: ", len(trndata)
 print "Input and output dimensions: ", trndata.indim, trndata.outdim
 print "First sample (input, target, class):"
-#print trndata['input'][0], trndata['target'][0], trndata['class'][0]
-trndata._convertToOneOfMany( )
+print trndata['input'][0], trndata['target'][0], trndata['class'][0]
 #tstdata._convertToOneOfMany( )
 inLayer = LinearLayer(9, name='in')
 hiddenLayer = SigmoidLayer(15, name='hide')
@@ -79,18 +81,22 @@ n.addConnection(hidden2_to_hidden3)
 n.addConnection(hidden3_to_bias1)
 n.addConnection(bias3_to_out)
 n.sortModules()
-#n.randomize()
-fnn = buildNetwork( trndata.indim, 5, trndata.outdim,hiddenclass=SigmoidLayer,bias=1, outclass=SoftmaxLayer )
-#trainer = RPropMinusTrainer( fnn, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1,batchlearning=1)
+n.randomize()
+print alldata
+
+fnn = buildNetwork( trndata.indim, 5, trndata.outdim,hiddenclass=SigmoidLayer,bias=1, outclass=SigmoidLayer )
+trainer = RPropMinusTrainer( n, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.01)#,batchlearning=True)
 #trainer2 = RPropMinusTrainer( n, dataset=trndata, momentum=0.1, verbose=True, weightdecay=0.1,batchlearning=1)
-#for i in range(10):
-#    trainer2.trainEpochs(2)
- #   trainer2._checkGradient(trndata)
+for i in range(20):
+    trainer.trainEpochs(30)
+    #trainer2._checkGradient(trndata)
 #trainer2.trainEpochs(2)
 #trainer2.testOnClassData()
 #trainer.trainUntilConvergence()
-#print fnn.activate(tstdata['input'][0])
-#print tstdata['target'][0]
+print n.activate(tstdata['input'][0])
+print tstdata['target'][0]
+print n.activate(trndata['input'][0])
+print trndata['target'][0]
 #print fnn.activate(tstdata['input'][0])
 #print tstdata['target'][0]
 #print fnn.activate(tstdata['input'][1])
@@ -121,7 +127,7 @@ fnn = buildNetwork( trndata.indim, 5, trndata.outdim,hiddenclass=SigmoidLayer,bi
 #print 'good'
 #netw=serial.load('network')
 #print netw
-import network2
+'''import network2
 net = network2.Network([9, 15, 2], cost=network2.CrossEntropyCost)
 net.large_weight_initializer()
 training_data=list()
@@ -197,5 +203,5 @@ while abs(stat[1][-1]-len(tstdata['input']))>1:
     nets_all.append((net,stat))
     k=k+1
 #net.SGD(training_data, 400, 10, 0.5, evaluation_data=test_data, monitor_evaluation_cost=True, monitor_evaluation_accuracy=True,monitor_training_cost=True, monitor_training_accuracy=True)
-serial.serialise(nets_all,'nets_new_large_2_2')
+serial.serialise(nets_all,'nets_new_large_2_2')'''
 print 'a'
