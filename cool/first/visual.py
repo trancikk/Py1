@@ -2,7 +2,6 @@ from Tkinter import *
 import processing
 import Dialog
 import serial
-from click.decorators import command
 from person import  *
 from processing import *
 from tkMessageBox import *
