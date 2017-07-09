@@ -20,12 +20,14 @@ gens_list = serial.load('gens_list')
 class Form_and_text(Frame):
     
     def __init__(self, parent=None, form_text=None):
-        self = Frame(parent)
-        self.form_text = Label(self, text='Fill gen %s' % form_text)
-        self.form_text.pack(side=LEFT)
-        self.form_entry = Entry(self)
+        self.frame = Frame(parent)
+        self.form_txt = Label(self.frame, text='Fill gen %s' % form_text)
+        self.form_txt.pack(side=LEFT)
+        self.form_entry = Entry(self.frame)
         self.form_entry.pack(side=RIGHT)
-        self.pack(side=TOP, expand=YES, fill=BOTH)
+        self.frame.pack(side=TOP, expand=YES, fill=BOTH)
+    def get(self):
+        return self.form_entry.get()
         # return self
 '''text1=Label(win, text='Gen1:')
 text1.pack(side=LEFT)    
@@ -35,15 +37,21 @@ form2=Entry(win)
 form3=Entry(win)
 form4=Entry(win)
 form5=Entry(win)'''
+
 form = dict()
+
 for i in gens_list:
     form[i] = Form_and_text(win, i)
+    
 def printme(event):
     for i in form:
-        print i       
+        print form[i].get()       
+
 b = Button(win, text='Click me')
+
 def pp(event):
     print 'pp'
+
 b.bind('<Button-1>', printme)
 
 b.pack()
