@@ -66,5 +66,5 @@ def pp(event):
 b.bind('<Button-1>', proc)
 
 b.pack()
-#win.pack()
+#fffwin.pack()
 win.mainloop()

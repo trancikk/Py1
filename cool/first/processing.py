@@ -13,7 +13,7 @@ def calculate(row):
     
     
 
-"""#print net[0][0]
+"""print net[0][0]
 succ=serial.load('success_norm')
 fail=serial.load('fail_norm')
 #print [i.getNormalGen() for i in test]
