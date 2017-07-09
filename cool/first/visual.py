@@ -4,6 +4,7 @@ import Dialog
 import serial
 from click.decorators import command
 from person import  *
+from processing import *
 
 win = Tk()
 win.title('Gen processing program')
@@ -53,6 +54,10 @@ b = Button(win, text='Click me')
 def proc(event):
     person=Example_Person([form[i].get() for i in form],[i for i in form])
     print person.printGens()
+    person.normaliseGens(gens_list)
+    person_gens=person.getNormalGen()
+    print person_gens
+    print calculate(person_gens)
     
 def pp(event):
     print 'pp'

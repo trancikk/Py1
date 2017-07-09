@@ -3,8 +3,9 @@ import numpy as np
 
 net=serial.load('nets_new_large_2_3')
 def calculate(row):
-    res= ((net[0][0].feedforward(row)))
-    res
+    ndarr=np.asarray(row)
+    ndarr.resize(9,1)
+    res= ((net[0][0].feedforward(ndarr)))
     res_str='Fail rate= %s; \n Success rate= %s;' % tuple(res)
     res_str=res_str.replace('[', '')
     res_str=res_str.replace(']', '')
