@@ -5,6 +5,8 @@ import serial
 from click.decorators import command
 from person import  *
 from processing import *
+from tkMessageBox import *
+
 
 win = Tk()
 win.title('Gen processing program')
@@ -57,7 +59,7 @@ def proc(event):
     person.normaliseGens(gens_list)
     person_gens=person.getNormalGen()
     print person_gens
-    print calculate(person_gens)
+    showinfo('OK',calculate(person_gens))
     
 def pp(event):
     print 'pp'
