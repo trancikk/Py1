@@ -3,7 +3,7 @@ import processing
 import Dialog
 import serial
 from click.decorators import command
-
+from person import  *
 
 win = Tk()
 win.title('Gen processing program')
@@ -26,6 +26,7 @@ class Form_and_text(Frame):
         self.form_entry = Entry(self.frame)
         self.form_entry.pack(side=RIGHT)
         self.frame.pack(side=TOP, expand=YES, fill=BOTH)
+    
     def get(self):
         return self.form_entry.get()
         # return self
@@ -49,10 +50,14 @@ def printme(event):
 
 b = Button(win, text='Click me')
 
+def proc(event):
+    person=Example_Person([form[i].get() for i in form],[i for i in form])
+    print person.printGens()
+    
 def pp(event):
     print 'pp'
 
-b.bind('<Button-1>', printme)
+b.bind('<Button-1>', proc)
 
 b.pack()
 #win.pack()

@@ -60,3 +60,10 @@ class Person(object):
             self.result=0
         else:
             self.result=1
+
+
+class Example_Person(Person):
+    
+    def __init__(self, args,firstRow):
+        self.gens=dict(zip(firstRow,args))
+        self.surname='example'
